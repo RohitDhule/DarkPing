@@ -127,11 +127,11 @@ const HomePage = () => {
                       <div className="flex flex-wrap gap-1.5">
                         <span className="badge badge-secondary">
                           {getLanguageFlag(user.firstLanguage)}
-                          Native: {capitialize(user.firstLanguage)}
+                          First: {capitialize(user.firstLanguage)}
                         </span>
                         <span className="badge badge-outline">
                           {getLanguageFlag(user.secondLanguage)}
-                          Learning: {capitialize(user.secondLanguage)}
+                          Second: {capitialize(user.secondLanguage)}
                         </span>
                       </div>
 
