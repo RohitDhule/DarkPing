@@ -12,6 +12,7 @@ import {
   MessageList,
   Thread,
   Window,
+  useChatContext,
 } from "stream-chat-react";
 import { StreamChat } from "stream-chat";
 import toast from "react-hot-toast";
@@ -28,6 +29,7 @@ const ChatPage = () => {
   const [chatClient, setChatClient] = useState(null);
   const [channel, setChannel] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [translatedMessages, setTranslatedMessages] = useState({});
 
   const { authUser } = useAuthUser();
 
@@ -101,12 +103,28 @@ const ChatPage = () => {
         <Channel channel={channel}>
           <div className="w-full relative">
             <div className="p-3 border-b flex items-center justify-end gap-2 max-w-7xl mx-auto w-full absolute top-0">
-              <TranslationButton />
+              <TranslationButton
+                messages={channel.state.messages}
+                setTranslatedMessages={setTranslatedMessages}
+                firstLanguage={authUser.firstLanguage}
+                secondLanguage={authUser.secondLanguage}
+              />
               <CallButton handleVideoCall={handleVideoCall} />
             </div>
             <Window>
               <ChannelHeader />
-              <MessageList />
+              <MessageList
+                message={(messageProps, i) => (
+                  <div key={i}>
+                    <p>{messageProps.message.text}</p>
+                    {translatedMessages[messageProps.message.id] && (
+                      <p style={{ color: "blue" }}>
+                        {translatedMessages[messageProps.message.id]}
+                      </p>
+                    )}
+                  </div>
+                )}
+              />
               <MessageInput focus />
             </Window>
           </div>
