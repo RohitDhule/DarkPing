@@ -18,6 +18,7 @@ import toast from "react-hot-toast";
 
 import ChatLoader from "../components/ChatLoader";
 import CallButton from "../components/CallButton";
+import TranslationButton from "../components/TranslationButton";
 
 const STREAM_API_KEY = import.meta.env.VITE_STREAM_API_KEY;
 
@@ -95,11 +96,14 @@ const ChatPage = () => {
   if (loading || !chatClient || !channel) return <ChatLoader />;
 
   return (
-    <div className="h-[93vh]">
+    <div className="h-[91vh]">
       <Chat client={chatClient}>
         <Channel channel={channel}>
           <div className="w-full relative">
-            <CallButton handleVideoCall={handleVideoCall} />
+            <div className="p-3 border-b flex items-center justify-end gap-2 max-w-7xl mx-auto w-full absolute top-0">
+              <TranslationButton />
+              <CallButton handleVideoCall={handleVideoCall} />
+            </div>
             <Window>
               <ChannelHeader />
               <MessageList />
